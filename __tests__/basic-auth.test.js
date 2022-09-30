@@ -1,7 +1,7 @@
 'use strict';
 
-const basicAuth = require('../src/auth/middleware/basic');
-const { sequelizeDatabase, UsersModel } = require('../src/auth/models/user-model');
+const basicAuth = require('');
+const { sequelizeDatabase, UsersModel } = require('');
 
 let user = {
   username: 'tester',

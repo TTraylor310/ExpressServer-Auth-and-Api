@@ -2,8 +2,8 @@
 
 const supertest = require('supertest');
 // once refactored, your sequelizeDatabase should live somewhere else and need a different import.  maybe same places as shown below?
-const { app } = require('../src/server');
-const { sequelizeDatabase } = require('../src/auth/models/user-model');
+const { app } = require('');
+const { sequelizeDatabase } = require('');
 const request = supertest(app); 
 
 

@@ -1,9 +1,11 @@
 'use strict';
 
-const { server } = require('../../instructor/auth-demo/src/server.js');
-const { sequelizeDatabase } = require('../../instructor/auth-demo/src/auth/models/user-model');
+const { server } = require('');
+const { sequelizeDatabase } = require('');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
+
+
 
 beforeAll (async () => {
   await sequelizeDatabase.sync();
@@ -15,7 +17,10 @@ afterAll (async () => {
   await sequelizeDatabase.close();
 });
 
+
+
 describe('Auth Tests', () => {
+  
   test('allows a user to signup with a POST to /signup', async () => {
     // create mockResponse
     let response = await mockRequest.post('/signup').send({
@@ -31,3 +36,5 @@ describe('Auth Tests', () => {
   });
 
 });
+
+
