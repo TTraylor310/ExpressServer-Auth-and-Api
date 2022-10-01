@@ -1,16 +1,18 @@
 'use strict';
 
-module.exports = (capability) => {
+function accessControl(permission) {
   return (req, res, next) => {
     try {
-      if (req.user.capabilities.includes(capability)) {
+      if (req.user.permissions.includes(permission)) {
         next();
-      }
-      else {
+      } else {
         next('Access Denied');
       }
     } catch (e) {
+      console.error('Error in acl.js:', e.message);
       next('Invalid Login');
     }
   };
-};
+}
+
+module.exports = accessControl;
