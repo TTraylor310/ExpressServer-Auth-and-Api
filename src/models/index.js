@@ -21,6 +21,10 @@ const DATABASE_CONFIG = process.env.NODE_ENV === 'production' ? {
   typeValidation: true,
 };
 
+// userModel.hasMany(moviesModel);
+// userModel.hasMany(musicModel);
+
+
 const sequelize = new Sequelize(DATABASE_URL, DATABASE_CONFIG);
 const movies = moviesModel(sequelize, DataTypes);
 const music = musicModel(sequelize, DataTypes);
