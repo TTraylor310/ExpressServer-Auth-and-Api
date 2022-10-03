@@ -6,7 +6,7 @@
 
 ### Problem Domain
 
-This lab demonstrates how to implement an Express API complete with authentication and authorization functionality, restricting access to routes that manipulate a database with music and movies information.
+This lab demonstrates how to implement an Express API complete with authentication and authorization functionality, restricting access to routes that manipulate a database with music and movie information. It also features a comprehensive automated test suite.
 
 - [CI/CD GitHub Actions](https://github.com/TTraylor310/bt-auth-api/actions)
 - [Back-end server url production](https://bt-auth-api-88.herokuapp.com/)
@@ -27,11 +27,11 @@ This lab demonstrates how to implement an Express API complete with authenticati
 
 Model Routes
 
-- GET : `/api/v2/clothes` or `/api/v2/food`
-- GET : `/api/v2/clothes/:id` or `/api/v2/food:id`
-- POST : `/api/v2/clothes` or `/api/v2/food`
-- PUT : `/api/v2/clothes` or `/api/v2/food`
-- DELETE : `/api/v2/clothes` or `/api/v2/food`
+- GET : `/movies` or `/music`
+- GET : `/movies/id` or `/music/id`
+- POST : `/movies` or `/music`
+- PUT : `/movies/id` or `/music/id`
+- DELETE : `/movies/id` or `/music/id`
 
 Auth Routes
 
@@ -41,7 +41,7 @@ Auth Routes
 
 Other Routes
 
-- GET : `*` - catch-all route which always responds with a 404 Not Found error.
+- GET : `*` - catch-all route
 
 #### Tests
 
