@@ -1,6 +1,6 @@
 'use strict';
 
-function accessControl(permission) {
+module.exports = (permission) => {
   return (req, res, next) => {
     try {
       if (req.user.permissions.includes(permission)) {
@@ -13,6 +13,4 @@ function accessControl(permission) {
       next('Invalid Login');
     }
   };
-}
-
-module.exports = accessControl;
+};
