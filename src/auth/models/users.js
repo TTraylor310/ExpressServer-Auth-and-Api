@@ -43,7 +43,7 @@ const userModel = (sequelize, DataTypes) => {
     }
   });
 
-  model.authenticateBasic = async (username, password) => {
+  model.authenticateBasic = async function (username, password) {
     try {
       const user = await this.findOne({ where: { username } });
       const valid = await bcrypt.compare(password, user.password);
@@ -55,7 +55,7 @@ const userModel = (sequelize, DataTypes) => {
     }
   };
 
-  model.authenticateBearer = async (token) => {
+  model.authenticateBearer = async function (token) {
     try {
       const parsedToken = jwt.verify(token, SECRET);
       const user = await this.findOne({where: { username: parsedToken.username } });

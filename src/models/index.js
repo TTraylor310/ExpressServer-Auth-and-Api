@@ -20,7 +20,6 @@ const DATABASE_CONFIG = process.env.NODE_ENV === 'production' ? {
   },
   typeValidation: true,
 } : {
-  logging: true,
   typeValidation: true,
 };
 

@@ -17,8 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 app.use(logger);
-app.use(routes);
 app.use(authRoutes);
+app.use(routes);
 app.use('*', notFound);
 app.use(errorHandler);
 
