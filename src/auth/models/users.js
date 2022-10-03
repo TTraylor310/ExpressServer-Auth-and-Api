@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = process.env.SECRET || 'supersecretstring';
 
-function userModel(sequelize, DataTypes) {
+const userModel = (sequelize, DataTypes) => {
   const model = sequelize.define('Users', {
     username: { type: DataTypes.STRING, required: true, unique: true, primaryKey: true },
     password: { type: DataTypes.STRING, required: true },
@@ -13,10 +13,10 @@ function userModel(sequelize, DataTypes) {
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        return jwt.sign({ username: this.username }, SECRET);
+        return jwt.sign({ username: this.username }, SECRET, { expiresIn: '15m' });
       },
-      set(tokenObj) {
-        return jwt.sign(tokenObj, SECRET);
+      set(token) {
+        return jwt.sign(token, SECRET, { expiresIn: '15m' });
       },
     },
     permissions: {
@@ -33,7 +33,7 @@ function userModel(sequelize, DataTypes) {
     },
   });
 
-  model.beforeCreate(async function (user) {
+  model.beforeCreate(async (user) => {
     try {
       const hashedPass = await bcrypt.hash(user.password, 10);
       user.password = hashedPass;
@@ -43,7 +43,7 @@ function userModel(sequelize, DataTypes) {
     }
   });
 
-  model.authenticateBasic = async function (username, password) {
+  model.authenticateBasic = async (username, password) => {
     try {
       const user = await this.findOne({ where: { username } });
       const valid = await bcrypt.compare(password, user.password);
@@ -55,7 +55,7 @@ function userModel(sequelize, DataTypes) {
     }
   };
 
-  model.authenticateBearer = async function (token) {
+  model.authenticateBearer = async (token) => {
     try {
       const parsedToken = jwt.verify(token, SECRET);
       const user = await this.findOne({where: { username: parsedToken.username } });
@@ -68,6 +68,6 @@ function userModel(sequelize, DataTypes) {
   };
 
   return model;
-}
+};
 
 module.exports = userModel;

@@ -1,40 +1,56 @@
-# Server 'bt-auth-api'
+# LAB - Class 08
 
-## Author: Tim Traylor, Branden Ge
+## Project: BT Auth API for Music and Movies
 
-* [Heroku Link]()
-* [tests report]()
+### Authors: Branden Ge and Tim Traylor
 
-## PRs on Github
+### Problem Domain
 
-* [Github Pull-Request 1 Dev into Main]()
+This lab demonstrates how to implement an Express API complete with authentication and authorization functionality, restricting access to routes that manipulate a database with music and movies information.
+
+- [CI/CD GitHub Actions](https://github.com/TTraylor310/bt-auth-api/actions)
+- [Back-end server url production](https://bt-auth-api-88.herokuapp.com/)
 
 ### Setup
 
-.env requirements
-    * PORT - port number
+`.env` Environments variables set as shown in the `.env.sample`
 
-Running the app
+- `PORT`
+- `DATABASE_URL`
+- `SECRET`
 
-    * npm start
-    * Endpoint: /, /bad
-      * Returns Object
+#### Running the app
 
-        ```javascript
-        {
-          "domain": "/",
-          "status": "running",
-          "port":
-        }
-        ```
+- `npm start` or `nodemon` (if you have nodemon) to start the application.
+
+#### Features / Routes
+
+Model Routes
+
+- GET : `/api/v2/clothes` or `/api/v2/food`
+- GET : `/api/v2/clothes/:id` or `/api/v2/food:id`
+- POST : `/api/v2/clothes` or `/api/v2/food`
+- PUT : `/api/v2/clothes` or `/api/v2/food`
+- DELETE : `/api/v2/clothes` or `/api/v2/food`
+
+Auth Routes
+
+- POST : `/signup`
+- POST : `/signin`
+- GET : `/users`
+
+Other Routes
+
+- GET : `*` - catch-all route which always responds with a 404 Not Found error.
 
 #### Tests
 
-* Unit Tests: 'npm run test'
-* Lint Tests: 'npm run lint'
+- `npm test` to run tests
 
-<!-- #### UML
+#### UML Diagram
 
-(created with [MIRO](http://miro.com/)) -->
+![UML Diagram](uml9.png)
 
-<!-- ![UML](./) -->
+Diagram created with [InVision](https://www.invisionapp.com/)
+
+#### Credits: [Demo code from Ryan Gallaway at Code Fellows](https://github.com/codefellows/seattle-code-javascript-401d48/tree/main/class-09/inclass-demo)

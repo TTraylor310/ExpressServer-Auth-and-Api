@@ -11,23 +11,20 @@ const permissions = require('./middleware/acl.js');
 authRouter.post('/signup', async (req, res, next) => {
   try {
     let userRecord = await user.create(req.body);
-    const output = {
-      user: userRecord,
-      token: userRecord.token,
-    };
-    res.status(201).json(output);
+    res.status(201).json(userRecord.user);
   } catch (e) {
     console.error('Error in /signup route:', e.message);
-    next(e);
+    res.status(403).send('There was an error creating the user');
   }
 });
 
 authRouter.post('/signin', basicAuth, (req, res, next) => {
-  const user = {
-    user: req.user,
-    token: req.user.token,
-  };
-  res.status(200).json(user);
+  try {
+    res.status(200).json(req.user);
+  } catch (e) {
+    console.error('Error in the /signin route');
+    next(e);
+  }
 });
 
 authRouter.get('/users', bearerAuth, permissions('delete'), async (req, res, next) => {
@@ -39,10 +36,6 @@ authRouter.get('/users', bearerAuth, permissions('delete'), async (req, res, nex
     console.error('Error in /users route:', e.message);
     next(e);
   }
-});
-
-authRouter.get('/secret', bearerAuth, (req, res, next) => {
-  res.status(200).send('Welcome to the secret area');
 });
 
 module.exports = authRouter;

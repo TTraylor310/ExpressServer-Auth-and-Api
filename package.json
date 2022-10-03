@@ -5,23 +5,25 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "test": "NODE_ENV=test jest --verbose --coverage",
     "test-watch": "NODE_ENV=test jest --watchAll --verbose --coverage",
-    "db:config": "sequelize init:config",
+    "watch": "NODE_ENV=development nodemon index.js",
+    "db:config": "NODE_ENV=development sequelize init:config",
     "db:create": "sequelize db:create",
-    "db:drop": "sequelize db:drop"
+    "db:drop": "sequelize db:drop",
+    "db:seed": "node seed.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rkgallaway/auth-demo.git"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rkgallaway/auth-demo/issues"
-  },
-  "homepage": "https://github.com/rkgallaway/auth-demo#readme",
   "dependencies": {
     "base-64": "^1.0.0",
     "bcrypt": "^5.0.1",

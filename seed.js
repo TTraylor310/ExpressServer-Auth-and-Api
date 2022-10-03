@@ -1,8 +1,7 @@
-const {db} = require('../models/index');
-const { movies, music } = require('../models/index');
+const {db} = require('./src/models/index');
+const { movies, music } = require('./src/models/index');
 
 db.sync();
-// db.drop();
 
 movies.create({title: 'Top Gun: Maverick', genre: 'action', year: 2022});
 movies.create({title: 'The Batman', genre: 'action', year: 2022});
