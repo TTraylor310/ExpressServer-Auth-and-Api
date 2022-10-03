@@ -1,20 +1,23 @@
 'use strict';
-const base64 = require('base-64');
-const { users } = require('../../models');
 
-module.exports = async (req, res, next) => {
-  if (!req.headers.authorization) { return _authError(); }
-  let basic = req.headers.authorization.split(' ').pop();
-  let [user, pass] = base64.decode(basic).split(':');
+const base64 = require('base-64');
+const { user } = require('../../models');
+
+async function basicAuth(req, res, next) {
+  if (!req.headers.authorization) return _authError();
+  let basic = req.headers.authorization.split(' ')[1];
+  let [username, password] = base64.decode(basic).split(':');
   try {
-    console.log('check in basic step3', basic);
-    req.user = await users.authenticateBasic(user, pass);
-    console.log('before next AND catch', req.user);
+    req.user = await user.authenticateBasic(username, password);
     next();
   } catch (e) {
+    console.error('Error in basic.js:', e.message);
     _authError();
   }
+
   function _authError() {
     res.status(403).send('Invalid Login');
   }
-};
+}
+
+module.exports = basicAuth;

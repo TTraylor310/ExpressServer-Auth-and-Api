@@ -2,6 +2,8 @@
 
 const express = require('express');
 const dataModules = require('../models');
+const permission = require('../auth/middleware/acl');
+const bearerAuth = require('../auth/middleware/bearer');
 
 const router = express.Router();
 
@@ -11,16 +13,15 @@ router.param('model', (req, res, next) => {
     req.model = dataModules[modelName];
     next();
   } else {
-    next('An invalid model was sent in the path parameter');
+    next('Invalid Model');
   }
 });
 
-router.get('/:model', handleGetAll);
-router.get('/:model/:id', handleGetOne);
-router.post('/:model', handleCreate);
-router.put('/:model/:id', handleUpdate);
-router.delete('/:model/:id', handleDelete);
-router.get('/', handleRoot);
+router.get('/:model', bearerAuth, handleGetAll);
+router.get('/:model/:id', bearerAuth, handleGetOne);
+router.post('/:model', bearerAuth, permission('create'), handleCreate);
+router.put('/:model/:id', bearerAuth, permission('update'), handleUpdate);
+router.delete('/:model/:id', bearerAuth, permission('delete'), handleDelete);
 
 async function handleGetAll(req, res, next) {
   try {
@@ -34,10 +35,10 @@ async function handleGetAll(req, res, next) {
 
 async function handleGetOne(req, res, next) {
   try {
-    const oneRecord = await req.model.read(req.params.id);
-    res.status(200).json(oneRecord);
+    const record = await req.model.read(req.params.id);
+    res.status(200).json(record);
   } catch (e) {
-    console.error('Error in handleGetOne', e.message);
+    console.error('Error in handleGetOne:', e.message);
     next(e);
   }
 }
@@ -69,13 +70,9 @@ async function handleDelete(req, res, next) {
     const deletedRecord = await req.model.delete(req.params.id);
     res.status(200).json(deletedRecord);
   } catch (e) {
-    console.error('Error in handleUpdate:', e.message);
+    console.error('Error in handleDelete:', e.message);
     next(e);
   }
-}
-
-function handleRoot(req, res) {
-  res.status(200).send('You have reached the root route for BT-SERVER');
 }
 
 module.exports = router;
