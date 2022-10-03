@@ -1,4 +1,4 @@
-# LAB - Class 08
+# LAB - Class 09
 
 ## Project: BT Auth API for Music and Movies
 
