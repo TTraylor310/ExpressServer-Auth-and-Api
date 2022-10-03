@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
 const moviesModel = require('./movies.js');
 const musicModel = require('./music.js');

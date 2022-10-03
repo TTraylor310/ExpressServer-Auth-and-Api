@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = async (permission) => {
+module.exports = (permission) => {
   return (req, res, next) => {
     try {
       if (req.user.permissions.includes(permission)) {
